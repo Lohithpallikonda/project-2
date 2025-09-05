@@ -16,6 +16,7 @@ const CLIENT_ORIGIN = process.env.CLIENT_ORIGIN || 'http://localhost:3000';
 // CORS: allow configured origin + all Vercel preview URLs for this project
 const allowedOrigins = new Set([
   CLIENT_ORIGIN,
+  'https://reactnodejsauthsystem.vercel.app',
   'https://reactnodejsauthsystem-hrw9xntp0-lohiths-projects-73e818d8.vercel.app',
   'https://reactnodejsauthsystem-mgu1x3ige-lohiths-projects-73e818d8.vercel.app',
 ]);
