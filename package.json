@@ -1,0 +1,23 @@
+{
+  "name": "react-nodejs-auth-system",
+  "version": "1.0.0",
+  "description": "Full-stack authentication system with React.js and Node.js",
+  "main": "backend/server.js",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "start": "cd backend && npm start",
+    "build": "cd backend && npm install",
+    "install-backend": "cd backend && npm install",
+    "install-frontend": "cd frontend && npm install",
+    "dev": "cd backend && npm run dev"
+  },
+  "keywords": ["react", "nodejs", "authentication", "sqlite", "express"],
+  "author": "Lohith Pallikonda",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Lohithpallikonda/project-2.git"
+  }
+}
