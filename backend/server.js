@@ -84,5 +84,6 @@ app.get('/dashboard', requireAuth, (req, res) => {
 // Start server
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
-  console.log(`CORS origin: ${CLIENT_ORIGIN}`);
+  console.log(`CORS origins:`, [CLIENT_ORIGIN, 'https://reactnodejsauthsystem.vercel.app']);
+  console.log('Environment:', process.env.NODE_ENV);
 });
