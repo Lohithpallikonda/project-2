@@ -37,9 +37,6 @@ const corsConfig = {
 };
 
 app.use(cors(corsConfig));
-// Explicitly handle preflight for all routes (Express 5 path-to-regexp)
-// Use wildcard pattern to match any path
-app.options('*', cors(corsConfig));
 app.use(express.json());
 app.use(cookieParser());
 
