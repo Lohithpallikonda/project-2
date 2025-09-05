@@ -3,6 +3,17 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import axios from 'axios';
+import config from './config';
+
+// Configure axios to point to backend API
+axios.defaults.baseURL = config.API_BASE_URL || '';
+axios.defaults.withCredentials = true;
+if (process.env.NODE_ENV === 'production') {
+  // Helpful log to verify which API the frontend uses in production
+  // eslint-disable-next-line no-console
+  console.log('API base URL:', axios.defaults.baseURL);
+}
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
