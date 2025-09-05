@@ -14,7 +14,11 @@ const CLIENT_ORIGIN = process.env.CLIENT_ORIGIN || 'http://localhost:3000';
 
 // Middleware
 app.use(cors({
-  origin: [CLIENT_ORIGIN, 'https://reactnodejsauthsystem-hrw9xntp0-lohiths-projects-73e818d8.vercel.app'],
+  origin: [
+    CLIENT_ORIGIN, 
+    'https://reactnodejsauthsystem-hrw9xntp0-lohiths-projects-73e818d8.vercel.app',
+    'https://reactnodejsauthsystem-mgu1x3ige-lohiths-projects-73e818d8.vercel.app'
+  ],
   credentials: true,
 }));
 app.use(express.json());
