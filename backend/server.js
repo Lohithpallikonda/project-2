@@ -13,14 +13,27 @@ const PORT = process.env.PORT || 5000;
 const CLIENT_ORIGIN = process.env.CLIENT_ORIGIN || 'http://localhost:3000';
 
 // Middleware
-app.use(cors({
-  origin: [
-    CLIENT_ORIGIN, 
-    'https://reactnodejsauthsystem-hrw9xntp0-lohiths-projects-73e818d8.vercel.app',
-    'https://reactnodejsauthsystem-mgu1x3ige-lohiths-projects-73e818d8.vercel.app'
-  ],
-  credentials: true,
-}));
+// CORS: allow configured origin + all Vercel preview URLs for this project
+const allowedOrigins = new Set([
+  CLIENT_ORIGIN,
+  'https://reactnodejsauthsystem-hrw9xntp0-lohiths-projects-73e818d8.vercel.app',
+  'https://reactnodejsauthsystem-mgu1x3ige-lohiths-projects-73e818d8.vercel.app',
+]);
+// Matches: https://reactnodejsauthsystem-<previewId>-lohiths-projects-73e818d8.vercel.app
+const vercelPreviewRegex = /^https:\/\/reactnodejsauthsystem-[a-z0-9]+-lohiths-projects-73e818d8\.vercel\.app$/;
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true); // allow non-browser or same-origin
+      if (allowedOrigins.has(origin) || vercelPreviewRegex.test(origin)) {
+        return callback(null, true);
+      }
+      return callback(null, false);
+    },
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use(cookieParser());
 
@@ -88,6 +101,7 @@ app.get('/dashboard', requireAuth, (req, res) => {
 // Start server
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
-  console.log(`CORS origins:`, [CLIENT_ORIGIN, 'https://reactnodejsauthsystem-hrw9xntp0-lohiths-projects-73e818d8.vercel.app']);
+  console.log(`CORS origins (static):`, Array.from(allowedOrigins));
+  console.log(`CORS origins (regex):`, vercelPreviewRegex.toString());
   console.log('Environment:', process.env.NODE_ENV);
 });
