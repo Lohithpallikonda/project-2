@@ -14,7 +14,7 @@ const CLIENT_ORIGIN = process.env.CLIENT_ORIGIN || 'http://localhost:3000';
 
 // Middleware
 app.use(cors({
-  origin: CLIENT_ORIGIN,
+  origin: [CLIENT_ORIGIN, 'https://reactnodejsauthsystem.vercel.app'],
   credentials: true,
 }));
 app.use(express.json());
@@ -30,8 +30,8 @@ app.use(
     saveUninitialized: false,
     cookie: {
       httpOnly: true,
-      sameSite: 'lax',
-      secure: false, // set true if serving over HTTPS
+      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+      secure: process.env.NODE_ENV === 'production', // true for HTTPS in production
       maxAge: 1000 * 60 * 60 * 8, // 8 hours
     },
   })
@@ -43,6 +43,24 @@ const db = require('./db');
 // Routers (mounted in S5)
 const authRouter = require('./routes/auth');
 app.use('/auth', authRouter);
+
+// Root route
+app.get('/', (req, res) => {
+  res.status(200).json({ 
+    message: 'React Node.js Auth System API',
+    status: 'running',
+    endpoints: {
+      health: '/health',
+      auth: {
+        register: 'POST /auth/register',
+        login: 'POST /auth/login',
+        logout: 'POST /auth/logout',
+        me: 'GET /auth/me'
+      },
+      dashboard: 'GET /dashboard (protected)'
+    }
+  });
+});
 
 // Health check
 app.get('/health', (req, res) => {
