@@ -37,8 +37,8 @@ const corsConfig = {
 };
 
 app.use(cors(corsConfig));
-// Explicitly handle preflight for all routes
-app.options('*', cors(corsConfig));
+// Explicitly handle preflight for all routes (Express 5 path-to-regexp)
+app.options('(.*)', cors(corsConfig));
 app.use(express.json());
 app.use(cookieParser());
 
