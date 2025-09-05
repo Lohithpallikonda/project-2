@@ -22,18 +22,23 @@ const allowedOrigins = new Set([
 // Matches: https://reactnodejsauthsystem-<previewId>-lohiths-projects-73e818d8.vercel.app
 const vercelPreviewRegex = /^https:\/\/reactnodejsauthsystem-[a-z0-9]+-lohiths-projects-73e818d8\.vercel\.app$/;
 
-app.use(
-  cors({
-    origin: (origin, callback) => {
-      if (!origin) return callback(null, true); // allow non-browser or same-origin
-      if (allowedOrigins.has(origin) || vercelPreviewRegex.test(origin)) {
-        return callback(null, true);
-      }
-      return callback(null, false);
-    },
-    credentials: true,
-  })
-);
+const corsConfig = {
+  origin: (origin, callback) => {
+    if (!origin) return callback(null, true); // allow non-browser or same-origin
+    if (allowedOrigins.has(origin) || vercelPreviewRegex.test(origin)) {
+      return callback(null, true);
+    }
+    return callback(null, false);
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  optionsSuccessStatus: 204,
+};
+
+app.use(cors(corsConfig));
+// Explicitly handle preflight for all routes
+app.options('*', cors(corsConfig));
 app.use(express.json());
 app.use(cookieParser());
 
