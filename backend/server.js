@@ -14,7 +14,7 @@ const CLIENT_ORIGIN = process.env.CLIENT_ORIGIN || 'http://localhost:3000';
 
 // Middleware
 app.use(cors({
-  origin: [CLIENT_ORIGIN, 'https://reactnodejsauthsystem.vercel.app'],
+  origin: [CLIENT_ORIGIN, 'https://reactnodejsauthsystem-hrw9xntp0-lohiths-projects-73e818d8.vercel.app'],
   credentials: true,
 }));
 app.use(express.json());
@@ -84,6 +84,6 @@ app.get('/dashboard', requireAuth, (req, res) => {
 // Start server
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
-  console.log(`CORS origins:`, [CLIENT_ORIGIN, 'https://reactnodejsauthsystem.vercel.app']);
+  console.log(`CORS origins:`, [CLIENT_ORIGIN, 'https://reactnodejsauthsystem-hrw9xntp0-lohiths-projects-73e818d8.vercel.app']);
   console.log('Environment:', process.env.NODE_ENV);
 });
